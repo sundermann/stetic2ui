@@ -73,6 +73,12 @@
                 <property name="xalign">0</property>
             </xsl:if>
             
+            <!-- hack for VBox which is now Box with vertical property -->
+            <xsl:if test="@class='Gtk.VBox'">
+                <xsl:attribute name="class">GtkBox</xsl:attribute>
+                <property name="orientation">vertical</property>
+            </xsl:if>
+            
             <xsl:apply-templates />
         </object>
     </xsl:template>
@@ -108,7 +114,14 @@
         <child>
             <xsl:if test="@internal-child">
                 <xsl:variable name="internal-child">
-                    <xsl:value-of select="translate (@internal-child,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"/>
+                    <xsl:choose>
+                        <xsl:when test="@internal-child='ActionArea'">
+                           action_area
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="translate (@internal-child,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:variable>
                 <xsl:attribute name="internal-child"><xsl:value-of select="$internal-child"/></xsl:attribute>
             </xsl:if>
