@@ -115,9 +115,7 @@
             <xsl:if test="@internal-child">
                 <xsl:variable name="internal-child">
                     <xsl:choose>
-                        <xsl:when test="@internal-child='ActionArea'">
-                           action_area
-                        </xsl:when>
+                        <xsl:when test="@internal-child='ActionArea'">action_area</xsl:when>
                         <xsl:otherwise>
                             <xsl:value-of select="translate (@internal-child,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')"/>
                         </xsl:otherwise>
